@@ -348,8 +348,8 @@ class Menu(object):
             'url': self.get_native_model_url(model),
             'name': self.get_native_model_name(model),
             'app': app_name,
-            'perms': model.get('perms',None),
-            'add_url': model.get('add_url',None),
+            'perms': model.get('perms',''),
+            'add_url': model.get('add_url',''),
         }
 
     def get_native_model_url(self, model):
