@@ -338,9 +338,12 @@ class Menu(object):
         """
         Get model name by its last part of url
         """
-        url_parts = self.get_native_model_url(model).rstrip('/').split('/')
-        root_url_parts = reverse('admin:index').rstrip('/').split('/')
-        return '.'.join(url_parts[len(root_url_parts):][:2])
+        try:
+            url_parts = self.get_native_model_url(model).rstrip('/').split('/')
+            root_url_parts = reverse('admin:index').rstrip('/').split('/')
+            return '.'.join(url_parts[len(root_url_parts):][:2])
+        except AttributeError:
+            return ''
 
     def convert_native_model(self, model, app_name):
         return {
@@ -353,7 +356,7 @@ class Menu(object):
         }
 
     def get_native_model_url(self, model):
-        return model.get('admin_url','') or model.get('add_url', '')
+        return model.get('admin_url', '') or model.get('add_url', '')
 
     def process_model(self, model, app_name):
         if 'model' in model:
